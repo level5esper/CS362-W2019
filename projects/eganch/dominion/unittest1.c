@@ -4,8 +4,8 @@ Author: Chelsea Egan
 Class: CS 362-400
 Assignment: 3
 Date: February 5, 2018
-Description: This is a unit test for the playCard
-function in dominion.c
+Description: This is a unit test for the 
+numHandCards function in dominion.c
 *************************************************/
 
 #include "dominion.h"
@@ -15,10 +15,6 @@ function in dominion.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-//int numHandCards(struct gameState *state) {
-//  return state->handCount[whoseTurn(state)];
-//}
 
 void cardsInHandOfFirstPlayerAfterGameInitialized(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
