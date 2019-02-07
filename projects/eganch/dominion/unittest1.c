@@ -24,20 +24,17 @@ void cardsInHandOfFirstPlayerAfterGameInitialized(struct gameState *state, struc
 }
 
 void cardsInHandOfSecondPlayerAfterGameInitialized(struct gameState *state, struct TestState *testState) {
-  state->whoseTurn = 1;
-
   printf("---------------------------------------------\n");
   printf("TEST 2: numHandCards should return 0 for second player after game is initialized\n");
+  state->whoseTurn = 1;
   assertTrueForIntComparison(testState, 0, numHandCards(state));
   printf("---------------------------------------------\n\n");
 }
 
 void returnsCorrectHandCountWhenManuallySet(struct gameState *state, struct TestState *testState) {
-  state->whoseTurn = 0;
-  state->handCount[0] = 15;
-
   printf("---------------------------------------------\n");
   printf("TEST 3: numHandCards should return 15 for first player when manually set\n");
+  state->handCount[0] = 15;
   assertTrueForIntComparison(testState, 15, numHandCards(state));
   printf("---------------------------------------------\n\n");
 }
@@ -51,10 +48,13 @@ int main() {
   struct gameState testGameState;
   struct TestState testState = *setUpTestSuite();
 
-  setUpGameState(&testGameState);
-
+  resetGameState(&testGameState);
   cardsInHandOfFirstPlayerAfterGameInitialized(&testGameState, &testState);
+  
+  resetGameState(&testGameState);
   cardsInHandOfSecondPlayerAfterGameInitialized(&testGameState, &testState);
+  
+  resetGameState(&testGameState);
   returnsCorrectHandCountWhenManuallySet(&testGameState, &testState);
 
   printTotalsOfPassFailTests(&testState);

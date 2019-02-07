@@ -16,6 +16,12 @@ function in dominion.c
 #include <stdlib.h>
 #include <string.h>
 
+void setUpBeforeEachTest(struct gameState *state) {
+  int cards[5] = { council_room, treasure_map, copper, outpost, 27 };
+  resetGameState(state);
+  setPlayerHand(state, 0, cards, 5);
+}
+
 void wrongPhaseReturnsNegativeOne(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
   printf("TEST 1: playCard should return -1 if the phase is not 0\n");
@@ -29,7 +35,6 @@ void notEnoughActionsReturnsNegativeOne(struct gameState *state, struct TestStat
   printf("---------------------------------------------\n");
   printf("TEST 2: playCard should return -1 if the player has less than 1 actions\n");
   state->numActions = 0;
-  state->phase = 0;
   int result = playCard(0, -1, -1, -1, state);
   assertTrueForIntComparison(testState, -1, result);
   printf("---------------------------------------------\n\n");
@@ -38,7 +43,6 @@ void notEnoughActionsReturnsNegativeOne(struct gameState *state, struct TestStat
 void cardIsBasicCardReturnsNegativeOne(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
   printf("TEST 3: playCard should return -1 if the card played is a basic card\n");
-  state->numActions = 1;
   int result = playCard(2, -1, -1, -1, state);
   assertTrueForIntComparison(testState, -1, result);
   printf("---------------------------------------------\n\n");
@@ -69,27 +73,44 @@ void cardPlayedReturnsZeroReducesNumActions(struct gameState *state, struct Test
   printf("---------------------------------------------\n\n");
 }
 
-//TODO: Test update coins
-
+void coinsAreUpdated(struct gameState *state, struct TestState *testState) {
+  //The hand has 1 copper so the coins should be set to 1
+  //Playing outpost so does not add a coin bonus
+  printf("---------------------------------------------\n");
+  printf("TEST 7: playCard should update the coins based on the treasures in the hand\n");
+  playCard(3, -1, -1, -1, state);
+  assertTrueForIntComparison(testState, 1, state->coins);
+  printf("---------------------------------------------\n\n");
+}
 int main() {
   printf("*********************************************\n");
   printf("unittest2.c\n");
   printf("Testing playCard function from dominion.c\n");
   printf("---------------------------------------------\n\n");
 
-  int cards[5] = { council_room, treasure_map, copper, estate, 27 };
   struct TestState testState = *setUpTestSuite();
   struct gameState testGameState;
-
-  setUpGameState(&testGameState);
-  setFirstPlayerHand(&testGameState, cards);
-
+  
+  setUpBeforeEachTest(&testGameState);
   wrongPhaseReturnsNegativeOne(&testGameState, &testState);
+
+  setUpBeforeEachTest(&testGameState);
   notEnoughActionsReturnsNegativeOne(&testGameState, &testState);
+
+  setUpBeforeEachTest(&testGameState);
   cardIsBasicCardReturnsNegativeOne(&testGameState, &testState);
+
+  setUpBeforeEachTest(&testGameState);
   cardIsGreaterThanTreasureMapReturnsNegativeOne(&testGameState, &testState);
+
+  setUpBeforeEachTest(&testGameState);
   cardPlayedHasAnEffectThatReturnsNegativeOne(&testGameState, &testState);
+
+  setUpBeforeEachTest(&testGameState);
   cardPlayedReturnsZeroReducesNumActions(&testGameState, &testState);
+
+  setUpBeforeEachTest(&testGameState);
+  coinsAreUpdated(&testGameState, &testState);
 
   printTotalsOfPassFailTests(&testState);
 
