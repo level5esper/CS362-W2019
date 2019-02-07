@@ -2,6 +2,8 @@
 #include "dominion.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
 //Set up test suite
 struct TestState *setUpTestSuite() {
@@ -21,10 +23,16 @@ void setUpGameState(struct gameState *testGameState) {
   initializeGame(numPlayers, kingdomCards, randomSeed, testGameState);
 }
 
-//Set up first player's hand
-void setFirstPlayerHand(struct gameState *testGameState, int cards[]) {
-  for (int i = 0; i < 5; i++) {
-    testGameState->hand[0][i] = cards[i];
+//Clear game state and reinitialize
+void resetGameState(struct gameState *testGameState) {
+  memset(testGameState, 23, sizeof(struct gameState));
+  setUpGameState(testGameState);
+}
+
+//Set up player's hand
+void setPlayerHand(struct gameState *testGameState, int player, int cards[], int numCards) {
+  for (int i = 0; i < numCards; i++) {
+    testGameState->hand[player][i] = cards[i];
   }
 }
 
@@ -35,6 +43,39 @@ void assertTrueForIntComparison(struct TestState *testState, int expected, int a
     printf("TEST PASSED\n\n");
     incrementPassedTests(testState);
   } else {
+    printf("TEST FAILED\n\n");
+    incrementFailedTests(testState);
+  }
+}
+
+//Returns true or false based on whether expected array matches actual
+void assertTrueForIntArrayComparison(struct TestState *testState, int expected[], int expectedLength, int actual[], int actualLength) {
+  printf("Expected: ");
+  for (int i = 0; i < expectedLength; i++) {
+    printf("%d, ", expected[i]);
+  }
+  printf("Actual: ");
+  for (int i = 0; i < actualLength; i++) {
+    printf("%d, ", actual[i]);
+  }
+  printf("\n");
+
+  bool arraysMatch = true;
+
+  if (expectedLength != actualLength) {
+    arraysMatch = false;
+  } else {
+    for (int i = 0; i < expectedLength; i++) {
+      if (expected[i] != actual[i]) {
+        arraysMatch = false;
+      }
+    }
+  }
+  if (arraysMatch) {
+    printf("TEST PASSED\n\n");
+    incrementPassedTests(testState);
+  }
+  else {
     printf("TEST FAILED\n\n");
     incrementFailedTests(testState);
   }

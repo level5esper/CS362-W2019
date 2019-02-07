@@ -14,11 +14,17 @@ struct TestState *setUpTestSuite();
 //Set up game state
 void setUpGameState(struct gameState *testGameState);
 
+//Clear game state for reset
+void resetGameState(struct gameState *testGameState);
+
 //Set up first player's hand
-void setFirstPlayerHand(struct gameState *testGameState, int cards[]);
+void setPlayerHand(struct gameState *testGameState, int player, int cards[], int numCards);
 
 //Returns true or false based on whether expected matches actual
 void assertTrueForIntComparison(struct TestState *testState, int expected, int actual);
+
+//Returns true or false based on whether expected array matches actual
+void assertTrueForIntArrayComparison(struct TestState *testState, int expected[], int expectedLength, int actual[], int actualLength);
 
 //Tracks number of failed tests
 void incrementFailedTests(struct TestState *testState);
