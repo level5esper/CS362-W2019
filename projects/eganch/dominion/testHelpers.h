@@ -1,6 +1,8 @@
 #ifndef _TESTHELPERS_H
 #define _TESTHELPERS_H
 
+#include "dominion.h"
+
 struct TestState {
   int passedTests;
   int failedTests;
@@ -8,6 +10,12 @@ struct TestState {
 
 //Set up test suite
 struct TestState *setUpTestSuite();
+
+//Set up game state
+void setUpGameState(struct gameState *testGameState);
+
+//Set up first player's hand
+void setFirstPlayerHand(struct gameState *testGameState, int cards[]);
 
 //Returns true or false based on whether expected matches actual
 void assertTrueForIntComparison(struct TestState *testState, int expected, int actual);

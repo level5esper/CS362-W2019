@@ -48,15 +48,10 @@ int main() {
   printf("Testing numHandCards function from dominion.c\n");
   printf("---------------------------------------------\n\n");
 
-  // Set up the game with standard inputs and cards
-  int numPlayers = 2;
-  int kingdomCards[10] = {adventurer, gardens,  embargo, village, minion,
-                          mine, cutpurse, sea_hag, tribute, smithy};
-  int randomSeed = 1000;
   struct gameState testGameState;
-  initializeGame(numPlayers, kingdomCards, randomSeed, &testGameState);
-
   struct TestState testState = *setUpTestSuite();
+
+  setUpGameState(&testGameState);
 
   cardsInHandOfFirstPlayerAfterGameInitialized(&testGameState, &testState);
   cardsInHandOfSecondPlayerAfterGameInitialized(&testGameState, &testState);
