@@ -71,11 +71,31 @@ void assertTrueForIntArrayComparison(struct TestState *testState, int expected[]
       }
     }
   }
-  if (arraysMatch) {
+  if (arraysMatch == true) {
     printf("TEST PASSED\n\n");
     incrementPassedTests(testState);
+  } else {
+    printf("TEST FAILED\n\n");
+    incrementFailedTests(testState);
   }
-  else {
+}
+
+//Return true or false based on whether the array holds any -1
+void assertTrueForArrayNotHoldingNegativeOne(struct TestState *testState, int testArray[], int testArrayLength) {
+  bool negativeOneFound = false;
+
+  printf("CARDS:\n");
+  for (int i = 0; i < testArrayLength; i++) {
+    printf("%d\n", testArray[i]);
+    if (testArray[i] == -1) {
+      negativeOneFound = true;
+    }
+  }
+
+  if (negativeOneFound == false) {
+    printf("TEST PASSED\n\n");
+    incrementPassedTests(testState);
+  } else {
     printf("TEST FAILED\n\n");
     incrementFailedTests(testState);
   }

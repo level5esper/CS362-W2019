@@ -26,6 +26,9 @@ void assertTrueForIntComparison(struct TestState *testState, int expected, int a
 //Returns true or false based on whether expected array matches actual
 void assertTrueForIntArrayComparison(struct TestState *testState, int expected[], int expectedLength, int actual[], int actualLength);
 
+//Return true or false based on whether the array holds any -1
+void assertTrueForArrayNotHoldingNegativeOne(struct TestState *testState, int testArray[], int testArrayLength);
+
 //Tracks number of failed tests
 void incrementFailedTests(struct TestState *testState);
 
