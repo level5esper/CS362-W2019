@@ -71,53 +71,11 @@ void assertTrueForIntArrayComparison(struct TestState *testState, int expected[]
       }
     }
   }
-  if (arraysMatch == true) {
-    printf("TEST PASSED\n\n");
-    incrementPassedTests(testState);
-  } else {
-    printf("TEST FAILED\n\n");
-    incrementFailedTests(testState);
-  }
-}
-
-//Return true or false based on whether the array holds a card
-void assertTrueForArrayHoldingCardValue(struct TestState *testState, int testArray[], int testArrayLength, int cardValue) {
-  bool cardValueFound = false;
-
-  printf("CARDS:\n");
-  for (int i = 0; i < testArrayLength; i++) {
-    printf("%d\n", testArray[i]);
-    if (testArray[i] == cardValue) {
-      cardValueFound = true;
-    }
-  }
-
-  if (cardValueFound == true) {
+  if (arraysMatch) {
     printf("TEST PASSED\n\n");
     incrementPassedTests(testState);
   }
   else {
-    printf("TEST FAILED\n\n");
-    incrementFailedTests(testState);
-  }
-}
-
-//Return true or false based on whether the array does not hold any card value
-void assertTrueForArrayNotHoldingCardValue(struct TestState *testState, int testArray[], int testArrayLength, int cardValue) {
-  bool cardValueFound = false;
-
-  printf("CARDS:\n");
-  for (int i = 0; i < testArrayLength; i++) {
-    printf("%d\n", testArray[i]);
-    if (testArray[i] == cardValue) {
-      cardValueFound = true;
-    }
-  }
-
-  if (cardValueFound == false) {
-    printf("TEST PASSED\n\n");
-    incrementPassedTests(testState);
-  } else {
     printf("TEST FAILED\n\n");
     incrementFailedTests(testState);
   }
@@ -146,35 +104,4 @@ void printTotalsOfPassFailTests(struct TestState *testState) {
 void resetTestCounters(struct TestState *testState) {
   testState->failedTests = 0;
   testState->passedTests = 0;
-}
-
-//Empty the player's deck and move into played cards (used to test an empty deck)
-void emptyDeckIntoPlayedCards(struct gameState *state) {
-  int deckSize = state->deckCount[0];
-  for (int i = 0; i < deckSize; i++) {
-    state->playedCards[i] = state->deck[0][state->deckCount[0]];
-    state->deck[0][state->deckCount[0]] = -1;
-    state->deckCount[0]--;
-    state->playedCardCount++;
-  }
-}
-
-//Set the player's deck to a certain card
-void setPlayerDeckToCard(struct gameState *state, int card) {
-  for (int i = 0; i < state->deckCount[0]; i++) {
-    state->deck[0][i] = card;
-  }
-}
-
-//Compare two values and return true if test value is greater than compare value
-void assertTrueForGreaterThan(struct TestState *testState, int testValue, int compareValue) {
-  printf("%d > %d\n", testValue, compareValue);
-  if (testValue > compareValue) {
-    printf("TEST PASSED\n\n");
-    incrementPassedTests(testState);
-  }
-  else {
-    printf("TEST FAILED\n\n");
-    incrementFailedTests(testState);
-  }
 }
