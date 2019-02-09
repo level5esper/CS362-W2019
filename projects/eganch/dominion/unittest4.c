@@ -111,6 +111,17 @@ void currentPlayerHandDiscarded(struct gameState *state, struct TestState *testS
   printf("---------------------------------------------\n\n");
 }
 
+void playedCardsShouldBeEmptied(struct gameState *state, struct TestState *testState) {
+  printf("---------------------------------------------\n");
+  printf("TEST 9: Any cards added to playedCards should be emptied\n");
+  state->playedCardCount = 1;
+  state->playedCards[0] = copper;
+  endTurn(state);
+  printf("No cards in playedCardCount\n");
+  assertTrueForIntComparison(testState, -1, state->playedCards[0]);
+  printf("---------------------------------------------\n\n");
+}
+
 int main() {
   printf("*********************************************\n");
   printf("unittest4.c\n");
@@ -143,6 +154,9 @@ int main() {
 
   resetGameState(&testGameState);
   currentPlayerHandDiscarded(&testGameState, &testState);
+
+  resetGameState(&testGameState);
+  playedCardsShouldBeEmptied(&testGameState, &testState);
 
   printTotalsOfPassFailTests(&testState);
 

@@ -27,7 +27,10 @@ void setUpBeforeEachTest(struct gameState *state) {
 void invalidHandPos(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
   printf("TEST 1: Calls handCard with a handPos that does not have a card\n");
+  printf("handPos is an index higher than number of cards in hand\n");
   assertTrueForIntComparison(testState, -1, handCard(5, state));
+  printf("handPos is an index lower than number of cards in hand\n");
+  assertTrueForIntComparison(testState, -1, handCard(-1, state));
   printf("---------------------------------------------\n\n");
 }
 
