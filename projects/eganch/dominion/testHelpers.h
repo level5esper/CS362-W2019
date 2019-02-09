@@ -26,6 +26,12 @@ void assertTrueForIntComparison(struct TestState *testState, int expected, int a
 //Returns true or false based on whether expected array matches actual
 void assertTrueForIntArrayComparison(struct TestState *testState, int expected[], int expectedLength, int actual[], int actualLength);
 
+//Return true or false based on whether the array does not hold a card value
+void assertTrueForArrayNotHoldingCardValue(struct TestState *testState, int testArray[], int testArrayLength, int cardValue);
+
+//Return true or false based on whether the array holds a card
+void assertTrueForArrayHoldingCardValue(struct TestState *testState, int testArray[], int testArrayLength, int cardValue);
+
 //Tracks number of failed tests
 void incrementFailedTests(struct TestState *testState);
 
@@ -38,5 +44,13 @@ void printTotalsOfPassFailTests(struct TestState *testState);
 //Reset counters for passed/failed tests
 void resetTestCounters(struct TestState *testState);
 
+//Empty the player's deck and move into played cards (used to test an empty deck)
+void emptyDeckIntoPlayedCards(struct gameState *state);
+
+//Set the player's deck to a certain card
+void setPlayerDeckToCard(struct gameState *state, int card);
+
+//Compare two values and return true if test value is greater than compare value
+void assertTrueForGreaterThan(struct TestState *testState, int testValue, int compareValue);
 
 #endif // !_TESTHELPERS_H
