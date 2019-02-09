@@ -10,7 +10,6 @@ function in dominion.c
 
 #include "dominion.h"
 #include "testHelpers.h"
-#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,12 +79,12 @@ void stateVariablesAreReset(struct gameState *state, struct TestState *testState
 
 void nextPlayerDrawsFiveCards(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
-  printf("TEST 5: The next player draws five cards\n");
+  printf("TEST 6: The next player draws five cards\n");
   endTurn(state);
   printf("The player should have a hand count of 5\n");
   assertTrueForIntComparison(testState, 5, state->handCount[1]);
   printf("The player's hand should not hold any set to -1\n");
-  assertTrueForArrayNotHoldingNegativeOne(testState, state->hand[1], state->handCount[1]);
+  assertTrueForArrayNotHoldingCardValue(testState, state->hand[1], state->handCount[1], -1);
   printf("---------------------------------------------\n\n");
 }
 
@@ -93,14 +92,14 @@ void nextPlayerDrawsFiveCards(struct gameState *state, struct TestState *testSta
 //I can't control how many coins they get
 //void coinsOfNextPlayerGetSet(struct gameState *state, struct TestState *testState) {
 //  printf("---------------------------------------------\n");
-//  printf("TEST 6: The next player has coins updated\n");
+//  printf("TEST 7: The next player has coins updated\n");
 //  endTurn(state);
 //  printf("---------------------------------------------\n\n");
 //}
 
 void currentPlayerHandDiscarded(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
-  printf("TEST 7: All cards in the current player's hand should be discarded\n");
+  printf("TEST 8: All cards in the current player's hand should be discarded\n");
   int expectedDiscardCount = state->handCount[0];
   int cards[5] = { curse, estate, duchy, province, copper };
   setPlayerHand(state, 0, cards, 5);

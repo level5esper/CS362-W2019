@@ -10,7 +10,6 @@ function in dominion.c
 
 #include "dominion.h"
 #include "testHelpers.h"
-#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
