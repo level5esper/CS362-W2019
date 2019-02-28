@@ -16,6 +16,7 @@ struct TestState *setUpTestSuite();
 
 //Set up game state
 void setUpGameState(struct gameState *gameState);
+void setUpGameStateForAdventurer(struct gameState *gameState);
 
 //Clear game state for reset
 void resetGameState(struct gameState *testGameState);

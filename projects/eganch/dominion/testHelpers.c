@@ -17,12 +17,25 @@ struct TestState *setUpTestSuite() {
 
 //Set up game state
 void setUpGameState(struct gameState *gameState) {
-  //// Set up the game with standard inputs and cards
-  //int numPlayers = 2;
-  //int kingdomCards[10] = { adventurer, gardens,  embargo, village, minion,
-  //  mine, cutpurse, sea_hag, tribute, smithy };
-  //int randomSeed = 1000;
-  //initializeGame(numPlayers, kingdomCards, randomSeed, testGameState);
+  for (int i = 0; i < sizeof(struct gameState); i++) {
+    ((char *)gameState)[i] = floor(Random() * 256);
+  }
+  int playerNum = floor(Random() * 2);
+  gameState->whoseTurn = playerNum;
+  gameState->deckCount[playerNum] = floor(Random() * MAX_DECK);
+  for (int i = 0; i < gameState->deckCount[playerNum]; i++) {
+    gameState->deck[playerNum][i] = floor(Random() * 26);
+  }
+  gameState->discardCount[playerNum] = floor(Random() * MAX_DECK);
+  gameState->handCount[playerNum] = floor(Random() * MAX_HAND) + 1;
+  for (int i = 0; i < gameState->handCount[playerNum]; i++) {
+    gameState->hand[playerNum][i] = floor(Random() * 26);
+  }
+  gameState->playedCardCount = floor(Random() * MAX_DECK);
+  gameState->numActions = floor(Random() * 20);
+}
+
+void setUpGameStateForAdventurer(struct gameState *gameState) {
   for (int i = 0; i < sizeof(struct gameState); i++) {
     ((char *)gameState)[i] = floor(Random() * 256);
   }
@@ -38,7 +51,6 @@ void setUpGameState(struct gameState *gameState) {
   for (int i = 1; i < gameState->handCount[playerNum]; i++) {
     gameState->hand[playerNum][i] = floor(Random() * 26);
   }
-
   gameState->playedCardCount = 0;
 }
 

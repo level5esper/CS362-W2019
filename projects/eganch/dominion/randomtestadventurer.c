@@ -68,7 +68,7 @@ int main() {
 
 
   for (int n = 0; n < 2000; n++) {
-    setUpGameState(&gameState);
+    setUpGameStateForAdventurer(&gameState);
     checkAdventurer(&testState, &gameState);
   }
 

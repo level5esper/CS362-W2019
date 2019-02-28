@@ -5,7 +5,7 @@ Class: CS 362-400
 Assignment: 4
 Date: February 26, 2018
 Description: This is a random test for the
-smithy card in dominion.c
+village card in dominion.c
 *************************************************/
 
 #include "dominion.h"
@@ -20,34 +20,40 @@ smithy card in dominion.c
 
 /*** SET TEST_DEBUG TO 1 IN TESTHELPERS.H TO PRINT ERRORS ***/
 
-void checkSmithy(struct TestState *testState, struct gameState *post) {
+void checkVillage(struct TestState *testState, struct gameState *post) {
   int r;
   int bonus = 0;
   int playerNum = post->whoseTurn;
   int originalHandNum = post->handCount[playerNum];
   int originalDeckCount = post->deckCount[playerNum];
   int originalPlayedCount = post->playedCardCount;
+  int originalNumActions = post->numActions;
 
-  r = cardEffect(smithy, -1, -1, -1, post, 0, &bonus);
+  r = cardEffect(village, -1, -1, -1, post, 0, &bonus);
 
   //returns 0
   if (!assertTrueForIntComparison(testState, 0, r) && TEST_DEBUG) {
     printf("X - Test did not return 0\n");
   }
 
-  //drew three cards and discarded one card
-  if (!assertTrueForIntComparison(testState, originalHandNum + 2, post->handCount[playerNum]) && TEST_DEBUG) {
+  //drew one card and discarded one card
+  if (!assertTrueForIntComparison(testState, originalHandNum, post->handCount[playerNum]) && TEST_DEBUG) {
     printf("X - Hand count incorrect\n");
   }
 
-  //deck size has decreased by three
-  if (!assertTrueForIntComparison(testState, originalDeckCount - 3, post->deckCount[playerNum]) && TEST_DEBUG) {
+  //actions increased by two
+  if (!assertTrueForIntComparison(testState, originalNumActions + 2, post->numActions) && TEST_DEBUG) {
+    printf("X - Number of actions incorrect\n");
+  }
+
+  //deck size has decreased by one
+  if (!assertTrueForIntComparison(testState, originalDeckCount - 1, post->deckCount[playerNum]) && TEST_DEBUG) {
     printf("X - Deck size incorrect\n");
   }
 
-  //smithy should have been added to played cards
-  if (!assertTrueForArrayHoldingCardValue(testState, post->playedCards, post->playedCardCount, adventurer) && TEST_DEBUG) {
-    printf("X - played cards did not include smithy\n");
+  //village should have been added to played cards
+  if (!assertTrueForArrayHoldingCardValue(testState, post->playedCards, post->playedCardCount, village) && TEST_DEBUG) {
+    printf("X - played cards did not include village\n");
   }
   if (!assertTrueForIntComparison(testState, originalPlayedCount + 1, post->playedCardCount) && TEST_DEBUG) {
     printf("X - played card count incorrect\n");
@@ -57,7 +63,7 @@ void checkSmithy(struct TestState *testState, struct gameState *post) {
 int main() {
   printf("*********************************************\n");
   printf("randomtestcard2.c\n");
-  printf("Random testing smithy card from cardEffect function in dominion.c\n");
+  printf("Random testing village card from cardEffect function in dominion.c\n");
   printf("---------------------------------------------\n\n");
 
   struct gameState gameState;
@@ -69,11 +75,7 @@ int main() {
 
   for (int n = 0; n < 2000; n++) {
     setUpGameState(&gameState);
-
-    gameState.playedCardCount = floor(Random() * MAX_DECK);
-    gameState.numActions = floor(Random() * 20);
-
-    checkSmithy(&testState, &gameState);
+    checkVillage(&testState, &gameState);
   }
 
   printTotalsOfPassFailTests(&testState);
