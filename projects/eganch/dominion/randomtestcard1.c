@@ -20,7 +20,7 @@ smithy card in dominion.c
 
 /*** SET TEST_DEBUG TO 1 IN TESTHELPERS.H TO PRINT ERRORS ***/
 
-void checkSmithy(struct TestState *testState, struct gameState *post) {
+void checkSmithy(struct TestState *testState, struct gameState *post, int handPos) {
   int r;
   int bonus = 0;
   int playerNum = post->whoseTurn;
@@ -28,7 +28,7 @@ void checkSmithy(struct TestState *testState, struct gameState *post) {
   int originalDeckCount = post->deckCount[playerNum];
   int originalPlayedCount = post->playedCardCount;
 
-  r = cardEffect(smithy, -1, -1, -1, post, 0, &bonus);
+  r = cardEffect(smithy, -1, -1, -1, post, handPos, &bonus);
 
   //returns 0
   if (!assertTrueForIntComparison(testState, 0, r) && TEST_DEBUG) {
@@ -68,8 +68,8 @@ int main() {
 
 
   for (int n = 0; n < 2000; n++) {
-    setUpGameState(&gameState);
-    checkSmithy(&testState, &gameState);
+    int handPos = setUpGameState(&gameState, smithy);
+    checkSmithy(&testState, &gameState, handPos);
   }
 
   printTotalsOfPassFailTests(&testState);

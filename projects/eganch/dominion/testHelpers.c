@@ -16,7 +16,7 @@ struct TestState *setUpTestSuite() {
 }
 
 //Set up game state
-void setUpGameState(struct gameState *gameState) {
+int setUpGameState(struct gameState *gameState, int fixedCard) {
   for (int i = 0; i < sizeof(struct gameState); i++) {
     ((char *)gameState)[i] = floor(Random() * 256);
   }
@@ -31,8 +31,14 @@ void setUpGameState(struct gameState *gameState) {
   for (int i = 0; i < gameState->handCount[playerNum]; i++) {
     gameState->hand[playerNum][i] = floor(Random() * 26);
   }
+
+  int fixedCardPosition = floor(Random() * gameState->handCount[playerNum]);
+  gameState->hand[playerNum][fixedCardPosition] = fixedCard;
+
   gameState->playedCardCount = floor(Random() * MAX_DECK);
   gameState->numActions = floor(Random() * 20);
+
+  return fixedCardPosition;
 }
 
 void setUpGameStateForAdventurer(struct gameState *gameState) {
@@ -52,12 +58,6 @@ void setUpGameStateForAdventurer(struct gameState *gameState) {
     gameState->hand[playerNum][i] = floor(Random() * 26);
   }
   gameState->playedCardCount = 0;
-}
-
-//Clear game state and reinitialize
-void resetGameState(struct gameState *testGameState) {
-  memset(testGameState, 23, sizeof(struct gameState));
-  setUpGameState(testGameState);
 }
 
 //Set up player's hand

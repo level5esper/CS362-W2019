@@ -15,11 +15,8 @@ struct TestState {
 struct TestState *setUpTestSuite();
 
 //Set up game state
-void setUpGameState(struct gameState *gameState);
+int setUpGameState(struct gameState *gameState, int fixedCard);
 void setUpGameStateForAdventurer(struct gameState *gameState);
-
-//Clear game state for reset
-void resetGameState(struct gameState *testGameState);
 
 //Set up first player's hand
 void setPlayerHand(struct gameState *testGameState, int player, int cards[], int numCards);
