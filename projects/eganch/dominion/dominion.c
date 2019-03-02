@@ -1026,10 +1026,18 @@ int adventurerCardEffect(struct gameState *state, int currentPlayer) {
   int temphand[MAX_HAND];
   int tempHandCounter = 0;
 
+  //Added for catching shuffle failure
+  int catchFailure = 0;
+
   while (drawntreasure < 2) {
     // if the deck is empty we need to shuffle discard and add to deck
     if (state->deckCount[currentPlayer] < 1) {
-      shuffle(currentPlayer, state);
+      //Adding a catch for when shuffle returns -1
+      catchFailure = shuffle(currentPlayer, state);
+    }
+
+    if (catchFailure == -1) {
+      return -1;
     }
 
     drawCard(currentPlayer, state);

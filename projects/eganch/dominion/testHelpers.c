@@ -41,25 +41,6 @@ int setUpGameState(struct gameState *gameState, int fixedCard) {
   return fixedCardPosition;
 }
 
-void setUpGameStateForAdventurer(struct gameState *gameState) {
-  for (int i = 0; i < sizeof(struct gameState); i++) {
-    ((char *)gameState)[i] = floor(Random() * 256);
-  }
-  int playerNum = floor(Random() * 2);
-  gameState->whoseTurn = playerNum;
-  gameState->deckCount[playerNum] = floor(Random() * MAX_DECK);
-  for (int i = 0; i < gameState->deckCount[playerNum]; i++) {
-    gameState->deck[playerNum][i] = floor(Random() * 26);
-  }
-  gameState->discardCount[playerNum] = floor(Random() * MAX_DECK);
-  gameState->handCount[playerNum] = floor(Random() * MAX_HAND) + 1;
-  gameState->hand[playerNum][0] = adventurer;
-  for (int i = 1; i < gameState->handCount[playerNum]; i++) {
-    gameState->hand[playerNum][i] = floor(Random() * 26);
-  }
-  gameState->playedCardCount = 0;
-}
-
 //Set up player's hand
 void setPlayerHand(struct gameState *testGameState, int player, int cards[], int numCards) {
   for (int i = 0; i < numCards; i++) {
