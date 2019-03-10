@@ -138,7 +138,7 @@ public class UrlValidatorTest extends TestCase {
 			System.out.println("ERROR: " + e + "\n\n");
 		}
 		
-		System.out.println("Test 18: return true if the url is long but valid");
+		System.out.println("Test 20: return true if the url is long but valid");
 		assertBooleanMatch(true, urlVal.isValid("http://smile.amazon.com/apb/page/ref=gbps_tit_s-5_5baf_057e0599?handlerName=OctopusDealLandingStream&deals=057e0599&marketplaceId=ATVPDKIKX0DER&showVariations=false&smid=A2EPN08Z0FPLG4&pf_rd_p=a7e1c818-e7bc-4318-ae47-1f5300505baf&pf_rd_s=slot-5&pf_rd_t=701&pf_rd_i=gb_main&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=JTVAMPJV3T309CTGXW4W"));
 		
 	}
