@@ -44,7 +44,7 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("PROGRAMMING BASED TESTING");
 		System.out.println("----------------------------------------------------------");
 		System.out.println("\nNEGATIVE TEST CASES\n\n");
-		
+				
 		UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 		UrlValidator urlValNoFragments = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES + UrlValidator.NO_FRAGMENTS);
 		UrlValidator urlValTwoSlashes = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES + UrlValidator.ALLOW_2_SLASHES);
@@ -55,7 +55,8 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Test 2: return false if url scheme is invalid");
 		try {		   
 			assertBooleanMatch(false, urlVal.isValid("htt://www.google.com/"));
-		} catch (Error e) {
+		} catch (Throwable e) {
+			System.out.println(e.getCause());
 			System.out.println("ERROR: " + e + "\n\n");
 		}
 
@@ -63,7 +64,7 @@ public class UrlValidatorTest extends TestCase {
 				+ "an empty authority, and the authority contains ':'");
 		try {		   
 			assertBooleanMatch(false, urlVal.isValid("file://test:"));
-		} catch (Error e) {
+		} catch (Throwable e) {
 			System.out.println("ERROR: " + e + "\n\n");
 		}
 
@@ -140,6 +141,15 @@ public class UrlValidatorTest extends TestCase {
 		
 		System.out.println("Test 20: return true if the url is long but valid");
 		assertBooleanMatch(true, urlVal.isValid("http://smile.amazon.com/apb/page/ref=gbps_tit_s-5_5baf_057e0599?handlerName=OctopusDealLandingStream&deals=057e0599&marketplaceId=ATVPDKIKX0DER&showVariations=false&smid=A2EPN08Z0FPLG4&pf_rd_p=a7e1c818-e7bc-4318-ae47-1f5300505baf&pf_rd_s=slot-5&pf_rd_t=701&pf_rd_i=gb_main&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=JTVAMPJV3T309CTGXW4W"));
+		
+		System.out.println("Test 21: return true if the url is valid and passes a RegExValidator in the constructor");
+		try {		   
+			RegexValidator authorityValidator = new RegexValidator("*");
+			UrlValidator urlValRegExValidator = new UrlValidator(null, authorityValidator, UrlValidator.ALLOW_ALL_SCHEMES);
+			assertBooleanMatch(false, urlValRegExValidator.isValid("http://www.google.com"));
+		} catch (Throwable e) {
+			System.out.println("ERROR: " + e + "\n\n");
+		}
 		
 	}
 
