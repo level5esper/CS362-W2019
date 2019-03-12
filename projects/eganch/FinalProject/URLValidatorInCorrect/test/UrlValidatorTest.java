@@ -44,10 +44,13 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("PROGRAMMING BASED TESTING");
 		System.out.println("----------------------------------------------------------");
 		System.out.println("\nNEGATIVE TEST CASES\n\n");
+		
+		String schemes[] = {"http"};
 				
 		UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 		UrlValidator urlValNoFragments = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES + UrlValidator.NO_FRAGMENTS);
 		UrlValidator urlValTwoSlashes = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES + UrlValidator.ALLOW_2_SLASHES);
+		UrlValidator urlValSchemes = new UrlValidator(schemes);
 
 		System.out.println("Test 1: return false if url is null");
 		assertBooleanMatch(false, urlVal.isValid(null));
@@ -150,6 +153,9 @@ public class UrlValidatorTest extends TestCase {
 		} catch (Throwable e) {
 			System.out.println("ERROR: " + e + "\n\n");
 		}
+		
+		System.out.println("Test 22: return true if scheme matches one passed to constructor");
+		assertBooleanMatch(true, urlValSchemes.isValid("http://www.google.com"));
 		
 	}
 
