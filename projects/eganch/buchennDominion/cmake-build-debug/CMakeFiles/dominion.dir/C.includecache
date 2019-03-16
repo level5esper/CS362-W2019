@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/dominion.c
+dominion.h
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/dominion.h
+dominion_helpers.h
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/dominion_helpers.h
+rngs.h
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/rngs.h
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/dominion.h
+
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/dominion_helpers.h
+dominion.h
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/dominion.h
+
+/home/noah2017/Documents/CS362-W2019/projects/buchenn/dominion/rngs.h
+
