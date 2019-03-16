@@ -1270,8 +1270,7 @@ int useAdventurer(int currentPlayer, struct gameState* state, int* tempHand)
       z++;
     }
   }
-  /*Bug* removed "=" from while statement*/
-  while (z - 1 > 0) {
+  while (z - 1 >= 0) {
     state->discard[currentPlayer][state->discardCount[currentPlayer]++] = tempHand[z - 1]; // discard all cards in play that have been drawn
     z = z - 1;
   }
@@ -1281,7 +1280,7 @@ int useAdventurer(int currentPlayer, struct gameState* state, int* tempHand)
 int useSmithy(int handPos, int currentPlayer, struct gameState* state)//+3 Cards
 {
   //drawn three cards
-  for (int i = 0; i <= 3; i++) {
+  for (int i = 0; i < 3; i++) {
     drawCard(currentPlayer, state);
   }
 

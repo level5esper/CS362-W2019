@@ -75,7 +75,7 @@ void onlyOneTreasureCardInDeck(struct gameState *state, struct TestState *testSt
 
 void drawsNonTreasureCardsFirst(struct gameState *state, struct TestState *testState) {
   printf("---------------------------------------------\n");
-  printf("TEST 4: If the player draws two non-treasure cards and then two treasure cards, the temp hand should discard twice\n");
+  printf("TEST 4: If the player draws eight non-treasure cards and then two treasure cards, the temp hand should discard eight times\n");
   state->deckCount[0] = 10;
   setPlayerDeckToCard(state, estate);
   state->deck[0][0] = copper;
